@@ -9,7 +9,7 @@
 (defn splash []
   {:status 200
    :headers {"Content-Type" "application/xml"}
-   :body "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response> \n    <playtext>Hello World</playtext>\n</Response>"})
+   :body "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response> \n    <playtext>Hello World</playtext>\n<hangup></hangup></Response>"})
 
 (defroutes app
   (GET "/" []
