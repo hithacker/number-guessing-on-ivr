@@ -12,15 +12,23 @@
 (defn create-xml [vec]
   (xml/emit-str (xml/sexp-as-element vec)))
 
-(defn splash [event]
+(defn state-machine [{event :event data :data}]
+  (if (= event "NewCall")
+    (create-xml
+      [:response
+       [:collectdtmf
+        [:playtext "Please enter the number"]]
+       [:hangup]])
+    (create-xml
+      [:response
+       [:playtext (str "You entered " data)]])))
+
+(defn splash [params]
   (reset! guessed-number (rand-int 100))
   {:status 200
    :headers {"Content-Type" "application/xml"}
-   :body (create-xml
-           [:response
-            [:collectdtmf
-             [:playtext event]]
-            [:hangup]])})
+   :body (state-machine params)})
+
 
 (defroutes app
   (GET "/" {{event :event} :params}
