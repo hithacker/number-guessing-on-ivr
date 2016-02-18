@@ -9,20 +9,19 @@
 
 (def guessed-number (atom nil))
 
-(defn splash []
+(defn splash [event]
   (reset! guessed-number (rand-int 100))
   {:status 200
    :headers {"Content-Type" "application/xml"}
-   :body (xml/emit-str
-           (xml/sexp-as-element
-             [:response
-              [:collectdtmf
-               [:playtext "Enter the number"]]
-              [:hangup]]))})
+   :body (create-xml
+           [:response
+            [:collectdtmf
+             [:playtext event]]
+            [:hangup]])})
 
 (defroutes app
-  (GET "/" []
-       (splash))
+  (GET "/" {{event :event} :params}
+       (splash event))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
