@@ -9,6 +9,9 @@
 
 (def guessed-number (atom nil))
 
+(defn create-xml [vec]
+  (xml/emit-str (xml/sexp-as-element vec)))
+
 (defn splash [event]
   (reset! guessed-number (rand-int 100))
   {:status 200
@@ -29,8 +32,7 @@
   (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty (site #'app) {:port port :join? false})))
 
-(defn create-xml [vec]
-  (xml/emit-str (xml/sexp-as-element vec)))
+
 
 ;; For interactive development:
 ;; (.stop server)
