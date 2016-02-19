@@ -7,6 +7,8 @@
             [environ.core :refer [env]]
             [clojure.data.xml :as xml]))
 
+(timbre/refer-timbre)
+
 (def guessed-number (atom nil))
 
 (defn create-xml [vec]
@@ -17,13 +19,13 @@
     (create-xml
       [:response
        [:collectdtmf
-        [:playtext "Please enter the number"]]
-       [:hangup]])
+        [:playtext "Please enter the number"]]])
     (create-xml
       [:response
        [:playtext (str "You entered " data)]])))
 
 (defn splash [params]
+  (info "This will print")
   (reset! guessed-number (rand-int 100))
   {:status 200
    :headers {"Content-Type" "application/xml"}
