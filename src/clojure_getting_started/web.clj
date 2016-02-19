@@ -16,6 +16,8 @@
   (xml/emit-str (xml/sexp-as-element vec)))
 
 (defn state-machine [{event :event data :data}]
+  (info event)
+  (info data)
   (if (= event "NewCall")
     (create-xml
       [:response
@@ -26,7 +28,7 @@
        [:playtext (str "You entered " data)]])))
 
 (defn splash [params]
-  (info "This will print")
+  (info params)
   (reset! guessed-number (rand-int 100))
   {:status 200
    :headers {"Content-Type" "application/xml"}
