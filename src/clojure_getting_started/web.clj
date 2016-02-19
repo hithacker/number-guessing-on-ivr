@@ -36,8 +36,8 @@
 
 
 (defroutes app
-  (GET "/" {{event :event} :params}
-       (splash event))
+  (GET "/" {params :params}
+       (splash params))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
