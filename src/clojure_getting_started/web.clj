@@ -18,14 +18,33 @@
 (defn state-machine [{event :event data :data}]
   (info event)
   (info data)
-  (if (= event "NewCall")
-    (create-xml
-      [:response
-       [:collectdtmf
-        [:playtext "Please enter the number"]]])
-    (create-xml
-      [:response
-       [:playtext (str "You entered " data)]])))
+  (cond
+    (= event "NewCall")
+      (create-xml
+        [:response
+         [:collectdtmf
+          [:playtext "Guess the number"]]])
+    (= event "GotDTMF")
+      (let [num (Integer/parseInt data)]
+        (cond
+          (< num @guessed-number)
+            (create-xml
+              [:response
+               [:collectdtmf
+                [:playtext "Too low. Please try again."]]])
+          (> num @guessed-number)
+            (create-xml
+              [:response
+               [:collectdtmf
+                [:playtext "Too high. Please try again."]]])
+          :else
+            (create-xml
+              [:response
+               [:playtext "Bingo! You guessed it right. Congrats."]
+               [:hangup]])))
+    :else
+      (create-xml
+        [:response [:hangup]])))
 
 (defn splash [params]
   (info params)
