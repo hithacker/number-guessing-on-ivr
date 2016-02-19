@@ -3,10 +3,10 @@
             [compojure.handler :refer [site]]
             [compojure.route :as route]
             [clojure.java.io :as io]
-            [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [clojure.data.xml :as xml]
-            [taoensso.timbre :as timbre]))
+            [taoensso.timbre :as timbre])
+  (:use org.httpkit.server))
 
 (timbre/refer-timbre)
 
@@ -64,7 +64,7 @@
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
-    (jetty/run-jetty (site #'app) {:port port :join? false})))
+    (run-server (site #'app) {:port port :join? false})))
 
 
 
