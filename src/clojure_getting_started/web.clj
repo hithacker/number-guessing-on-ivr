@@ -20,10 +20,12 @@
   (info data)
   (cond
     (= event "NewCall")
-      (create-xml
-        [:response
-         [:collectdtmf
-          [:playtext "Guess the number"]]])
+      (do
+        (reset! guessed-number (rand-int 100))
+        (create-xml
+          [:response
+           [:collectdtmf
+            [:playtext "Guess the number"]]]))
     (= event "GotDTMF")
       (let [num (Integer/parseInt data)]
         (cond
@@ -48,7 +50,6 @@
 
 (defn splash [params]
   (info params)
-  (reset! guessed-number (rand-int 100))
   {:status 200
    :headers {"Content-Type" "application/xml"}
    :body (state-machine params)})
