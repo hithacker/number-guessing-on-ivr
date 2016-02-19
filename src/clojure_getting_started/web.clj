@@ -5,7 +5,8 @@
             [clojure.java.io :as io]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
-            [clojure.data.xml :as xml]))
+            [clojure.data.xml :as xml]
+            [taoensso.timbre :as timbre]))
 
 (timbre/refer-timbre)
 
