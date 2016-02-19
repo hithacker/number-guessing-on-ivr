@@ -1,7 +1,13 @@
 
 # IVR based number guessing game using kookoo and clojure
 
-An IVR based number guessing game.  
+An IVR based number guessing game.
+
+You can play it by dialling this number +91 40 3941 1020 and dialling pin 6829 when it asks. 
+
+It's little slow at this point. I will try to make it faster if I get some time in next few days.
+
+It is hosted at https://protected-brushlands-40813.herokuapp.com.
 
 ## Running Locally
 
