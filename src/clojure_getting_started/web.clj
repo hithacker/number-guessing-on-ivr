@@ -58,6 +58,7 @@
 (defroutes app
   (GET "/" {params :params}
        (splash params))
+  (GET "/reveal-secret" [] (Integer/toString @guessed-number))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
