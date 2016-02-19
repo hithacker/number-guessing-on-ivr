@@ -3,6 +3,10 @@
 
 An IVR based number guessing game.  
 
+You can play it by dialling this number +91 40 3941 1020 and dialling pin 6829 when it asks. 
+
+It's little slow at this point. I will try to make it faster if I get some time in next few days.
+
 ## Running Locally
 
 Make sure you have Clojure installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
